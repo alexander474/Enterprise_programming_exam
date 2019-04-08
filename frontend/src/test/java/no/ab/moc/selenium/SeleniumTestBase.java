@@ -5,7 +5,6 @@ import no.ab.moc.selenium.po.IndexPO;
 import no.ab.moc.selenium.po.SignUpPO;
 import no.ab.moc.selenium.po.ui.MatchPO;
 import no.ab.moc.selenium.po.ui.ResultPO;
-import no.ab.moc.service.QuizService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;

@@ -17,29 +17,21 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = StubApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE)
-//Important, as referring to state given by Singleton that
-//could be modified by previous tests, as they share the same
-//SpringBoot application context (ie SpringBoot is started only
-//once for all tests).
-//Also note that this class does NOT extend ServiceTestBase
 @DirtiesContext(classMode = BEFORE_CLASS)
 public class DefaultDataInitializerServiceTest {
 
-    @Autowired
-    private CategoryService categoryService;
 
     @Autowired
-    private QuizService quizService;
+    private TripService tripService;
+
+    @Autowired
+    private PurchaseService purchaseService;
 
     @Test
     public void testInit() {
 
-        assertTrue(categoryService.getAllCategories(false).size() > 0);
+        assertTrue(tripService.getAllTrips().size() > 0);
+        assertTrue(purchaseService.getAllPurchases().size() > 0);
 
-        assertTrue(categoryService.getAllCategories(true).stream()
-                .mapToLong(c -> c.getSubCategories().size())
-                .sum() > 0);
-
-        assertTrue(quizService.getQuizzes().size() > 0);
     }
 }

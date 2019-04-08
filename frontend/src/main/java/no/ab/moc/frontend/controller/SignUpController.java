@@ -28,7 +28,11 @@ public class SignUpController {
     private UserDetailsService userDetailsService;
 
 
-    private String username;
+    private String email;
+
+    private String name;
+
+    private String surname;
 
     private String password;
 
@@ -36,14 +40,14 @@ public class SignUpController {
 
         boolean registered = false;
         try {
-            registered = userService.createUser(username, password);
+            registered = userService.createUser(email, name, surname, password);
         } catch (Exception e) {
             //nothing to do
         }
 
         if (registered) {
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     password,
@@ -61,12 +65,28 @@ public class SignUpController {
         }
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getPassword() {

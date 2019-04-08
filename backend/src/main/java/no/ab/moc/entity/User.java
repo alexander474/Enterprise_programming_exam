@@ -1,20 +1,27 @@
 package no.ab.moc.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
-/**
- * Created by arcuri82 on 13-Dec-17.
- */
+
 @Entity
-@Table(name = "USERS")
+@Table(name = "USER")
 public class User {
 
     @Id
     @NotBlank
-    private String username;
+    @Email
+    private String email;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String surname;
 
     @NotBlank
     private String password;
@@ -25,15 +32,35 @@ public class User {
     @NotNull
     private Boolean enabled;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Purchase> purchases;
+
+
     public User() {
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getPassword() {
@@ -58,5 +85,13 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
     }
 }
