@@ -23,6 +23,12 @@ public class PurchaseService {
         return query.getResultList();
     }
 
+    public List<Purchase> getUserPurchase(String email){
+        TypedQuery<Purchase> query = em.createQuery("select p from Purchase p where p.user.email = ?1", Purchase.class);
+        query.setParameter(1, email);
+        return query.getResultList();
+    }
+
     public Purchase getPurchase(long id){
         return em.find(Purchase.class, id);
     }

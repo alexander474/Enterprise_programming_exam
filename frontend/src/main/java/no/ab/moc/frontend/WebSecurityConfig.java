@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.authorizeRequests()
                     .antMatchers("/", "/index.jsf", "/signup.jsf", "/assets/**").permitAll()
                     .antMatchers("/javax.faces.resource/**").permitAll()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/ui/**").authenticated()
                     .anyRequest().authenticated()
                     .and()
@@ -69,12 +70,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .dataSource(dataSource)
                     .usersByUsernameQuery(
                             "SELECT email, password, enabled " +
-                                    "FROM users " +
+                                    "FROM user " +
                                     "WHERE email = ?"
                     )
                     .authoritiesByUsernameQuery(
                             "SELECT x.email, y.roles " +
-                                    "FROM users x, user_roles y " +
+                                    "FROM user x, user_roles y " +
                                     "WHERE x.email = ? and y.user_email = x.email "
                     )
                     /*

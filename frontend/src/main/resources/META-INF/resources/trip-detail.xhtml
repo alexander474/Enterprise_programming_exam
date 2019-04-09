@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        Details
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Trips</h2>
+
+        <h:form prependId="false">
+
+            <h4><h:outputLabel value="#{tripsController.trip.title}"/></h4>
+            <br/>
+            <h3><h:outputLabel value="Description" /></h3>
+            <h:outputLabel value="#{tripsController.trip.description}" />
+            <br/>
+            <h3><h:outputLabel value="Location" /></h3>
+            <h:outputLabel value="#{tripsController.trip.location}" />
+            <br/>
+            <h3><h:outputLabel value="Date" /></h3>
+            <h:outputLabel value="#{tripsController.trip.date}" />
+            <br/>
+            <h3><h:outputLabel value="Cost" /></h3>
+            <h:outputLabel value="#{tripsController.trip.cost}" />
+            <br/>
+            <sec:authenticated>
+                <f:facet name="header">Book</f:facet>
+                <h:commandButton value="Book"
+                                 id="buyBtnId"
+                                 action="#{tripsController.bookTrip}"/>
+            </sec:authenticated>
+
+            <sec:anonymous>
+                <p>Log in to message a seller.</p>
+            </sec:anonymous>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+</html>

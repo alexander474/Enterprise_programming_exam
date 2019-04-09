@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        Trips
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Trips</h2>
+
+        <sec:authenticated>
+            <h:outputText value="Welcome #{userInfoController.currentUserFullName}!"/>
+        </sec:authenticated>
+
+        <h3>Books</h3>
+
+        <h:form prependId="false">
+            <h:dataTable value="#{tripsController.allTrips}" var="trip" border="1" id="booksTable" class="tableBook">
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <h:outputLabel value="#{trip.title}"
+                                   class="tripTitle"
+                                   id="title"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <h:outputLabel value="#{trip.description}"
+                                   class="tripDescription"
+                                   id="description"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Location</f:facet>
+                    <h:outputLabel value="#{trip.location}"
+                                   class="tripLocation"
+                                   id="location"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    <h:outputLabel value="#{trip.date}"
+                                   class="tripDate"
+                                   id="date"/>
+                </h:column>
+
+
+                <h:column>
+                    <f:facet name="header">Cost</f:facet>
+                    <h:outputLabel value="#{trip.cost}"
+                                   class="tripCost"
+                                   id="cost"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Details</f:facet>
+                    <h:commandButton id="detailBtn"
+                                     value="Details"
+                                     class="detailBtn"
+                                     action="#{tripsController.toTripDetailsPage(trip)}"/>
+                </h:column>
+
+
+            </h:dataTable>
+        </h:form>
+
+        <h3><h:outputLabel prependId="false" rendered="#{tripsController.allTrips.size() eq  0}" value="No trips"/></h3>
+
+
+        <sec:anonymous>
+            <p>You are not logged in!</p>
+        </sec:anonymous>
+    </ui:define>
+
+</ui:composition>
+</html>

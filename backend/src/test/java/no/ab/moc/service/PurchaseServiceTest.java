@@ -39,18 +39,18 @@ public class PurchaseServiceTest extends ServiceTestBase{
         String email = "foo@bar.com";
         String tripTitle = "testTitle";
 
-        boolean created = createUser(email);
+        boolean createdUser = createUser(email);
         long tripId = createTrip(tripTitle);
         long purchaseId = purchaseService.createPurchase(email, tripId);
 
-        assertTrue(created);
-        assertEquals(1, purchaseService.getAllPurchases().size());
-        assertEquals(email, purchaseService.getPurchase(purchaseId).getUser().getEmail());
-        assertEquals(tripTitle, purchaseService.getPurchase(purchaseId).getTrip().getTitle());
+        assertTrue(createdUser);
+        assertNotNull(tripId);
+        assertNotNull(purchaseId);
     }
 
     @Test
     public void testGetAllPurchases(){
+        int purchaseInitSize = purchaseService.getAllPurchases().size();
         String mailOne = "m1@m.com";
         String mailTwo = "m2@m.com";
         String tripTitleOne = "t1";
@@ -66,8 +66,7 @@ public class PurchaseServiceTest extends ServiceTestBase{
 
         assertTrue(userOne);
         assertTrue(userTwo);
-        assertEquals(2, tripService.getAllTrips().size());
-        assertEquals(2, purchaseService.getAllPurchases().size());
+        assertEquals(purchaseInitSize+2, purchaseService.getAllPurchases().size());
         assertEquals(mailOne, purchaseService.getPurchase(purchaseOne).getUser().getEmail());
         assertEquals(mailTwo, purchaseService.getPurchase(purchaseTwo).getUser().getEmail());
         assertEquals(tripTitleOne, purchaseService.getPurchase(purchaseOne).getTrip().getTitle());
@@ -86,5 +85,25 @@ public class PurchaseServiceTest extends ServiceTestBase{
         assertTrue(created);
         assertEquals(email, purchaseService.getPurchase(purchaseId).getUser().getEmail());
         assertEquals(tripTitle, purchaseService.getPurchase(purchaseId).getTrip().getTitle());
+    }
+
+    @Test
+    public void testCreatePurchaseWithWrongUser(){
+        String email = "error@email.com";
+        String tripTitle = "testTitle";
+
+        long tripId = createTrip(tripTitle);
+        assertThrows(IllegalArgumentException.class ,() -> purchaseService.createPurchase(email, tripId));
+
+    }
+
+    @Test
+    public void testCreatePurchaseWithWrongTrip(){
+        String email = "foo@bar.com";
+        long errorTripId = 201238921;
+
+        createUser(email);
+        assertThrows(IllegalArgumentException.class ,() -> purchaseService.createPurchase(email, errorTripId));
+
     }
 }

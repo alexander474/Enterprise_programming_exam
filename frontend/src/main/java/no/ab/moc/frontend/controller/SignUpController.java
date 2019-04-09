@@ -1,6 +1,5 @@
 package no.ab.moc.frontend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import no.ab.moc.service.UserService;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -18,13 +18,13 @@ import javax.inject.Named;
 @RequestScoped
 public class SignUpController {
 
-    @Autowired
+    @Inject
     private UserService userService;
 
-    @Autowired
+    @Inject
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+    @Inject
     private UserDetailsService userDetailsService;
 
 

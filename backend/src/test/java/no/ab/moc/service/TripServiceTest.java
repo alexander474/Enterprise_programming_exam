@@ -23,21 +23,20 @@ public class TripServiceTest extends ServiceTestBase {
 
     @Test
     public void testCreateTrip(){
+        int sizeOfTrips = tripService.getAllTrips().size();
         String title = "testTitle";
         long id = tripService.createTrip(title, "description", 2000L, "location", new Date());
-        assertEquals(1, tripService.getAllTrips().size());
+        assertEquals(sizeOfTrips+1, tripService.getAllTrips().size());
         assertEquals(title, tripService.getTrip(id).getTitle());
     }
 
     @Test
     public void testListAllTrips(){
-
-        List<Trip> list = tripService.getAllTrips();
-        assertEquals(0, list.size());
+        int sizeOfTrips = tripService.getAllTrips().size();
 
         long id = tripService.createTrip("title", "description", 2000L,"location", new Date());
         List<Trip> list2 = tripService.getAllTrips();
-        assertEquals(1, list2.size());
+        assertEquals(sizeOfTrips+1, list2.size());
     }
 
     @Test
