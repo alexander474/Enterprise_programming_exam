@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         try {
             http.csrf().disable();
             http.authorizeRequests()
-                    .antMatchers("/", "/index.jsf", "/signup.jsf", "/assets/**").permitAll()
+                    .antMatchers("/", "/*", "/index.jsf", "/signup.jsf", "/assets/**").permitAll()
                     .antMatchers("/javax.faces.resource/**").permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/ui/**").authenticated()
@@ -64,7 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-
         try {
             auth.jdbcAuthentication()
                     .dataSource(dataSource)
@@ -78,9 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                     "FROM user x, user_roles y " +
                                     "WHERE x.email = ? and y.user_email = x.email "
                     )
-                    /*
-                        Note: in BCrypt, the "password" field also contains the salt
-                     */
                     .passwordEncoder(passwordEncoder);
         } catch (Exception e) {
             throw new RuntimeException(e);

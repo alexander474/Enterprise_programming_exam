@@ -30,19 +30,20 @@
         <ui:insert name="title">Default title</ui:insert>
     </h1>
 
-    <a href="/index.jsf" class="defaultBtn">Home</a>
-    <a href="/trips.jsf" class="defaultBtn">Trips</a>
-    <a href="/myTrips.jsf" class="defaultBtn">MyTrips</a>
+    <a id="linkToHomeId" href="/index.jsf" class="defaultBtn">Home</a>
+    <a id="linkToTripsId" href="/trips.jsf" class="defaultBtn">Trips</a>
 
 <sec:authenticated>
     <div class="btnContainer">
+        <a id="linkToMyTripsId" href="/myTrips.jsf" class="defaultBtn">MyTrips</a>
         <a id="logoutId" href="/logout" class="defaultBtn menuBtn">Log Out</a>
-        <!--SOURCE: https://stackoverflow.com/questions/11469211/how-to-use-secauthorize-access-hasroleroles-for-checking-multiple-roles-->
+        <!-- https://stackoverflow.com/questions/11469211/how-to-use-secauthorize-access-hasroleroles-for-checking-multiple-roles-->
+        <!-- https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html-->
         <sec:authorize access="hasRole('ADMIN')">
+            <a id="registryId" href="/admin/trip-registery.jsf" class="defaultBtn menuBtn">Registry</a>
             <a id="usersId" href="/admin/users.jsf" class="defaultBtn menuBtn">Users</a>
         </sec:authorize>
     </div>
-
 </sec:authenticated>
 
 

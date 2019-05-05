@@ -1,7 +1,8 @@
 package no.ab.moc.selenium.po;
 
 import no.ab.moc.selenium.PageObject;
-import no.ab.moc.selenium.po.ui.MatchPO;
+import no.ab.moc.selenium.po.admin.UsersPO;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,15 +24,27 @@ public class IndexPO extends LayoutPO {
 
     @Override
     public boolean isOnPage() {
-        return getDriver().getTitle().contains("Quiz Game");
+        return getDriver().getTitle().contains("Title");
     }
 
-    public MatchPO startNewMatch(){
+    public boolean isLoggedIn() {
+        return getDriver().findElements(By.id("logoutId")).size() > 0 &&
+                getDriver().findElements((By.id("linkToSignupId"))).isEmpty();
+    }
 
-        clickAndWait("newMatchBtnId");
-        MatchPO po = new MatchPO(this);
+    public UsersPO toUsers(){
+        clickAndWait("usersId");
+        UsersPO po = new UsersPO(this);
+
         assertTrue(po.isOnPage());
+        return po;
+    }
 
+    public TripsPO toTrips(){
+        clickAndWait("linkToTripsId");
+        TripsPO po = new TripsPO(this);
+
+        assertTrue(po.isOnPage());
         return po;
     }
 }

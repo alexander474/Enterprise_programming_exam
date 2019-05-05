@@ -26,7 +26,7 @@ public class PurchaseServiceTest extends ServiceTestBase{
     private TripService tripService;
 
     public boolean createUser(String email){
-        return userService.createUser(email, "foo", "bar", "1234");
+        return userService.createUser(email, "foo", "bar", "1234", false);
     }
 
     public Long createTrip(String tripTitle){

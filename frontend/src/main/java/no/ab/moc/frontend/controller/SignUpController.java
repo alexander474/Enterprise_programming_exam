@@ -29,18 +29,15 @@ public class SignUpController {
 
 
     private String email;
-
     private String name;
-
     private String surname;
-
     private String password;
 
     public String signUpUser() {
 
         boolean registered = false;
         try {
-            registered = userService.createUser(email, name, surname, password);
+            registered = userService.createUser(email, name, surname, password, false);
         } catch (Exception e) {
             //nothing to do
         }

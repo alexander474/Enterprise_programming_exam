@@ -40,4 +40,8 @@ public class TripService {
         em.persist(trip);
         return trip.getId();
     }
+
+    public void deleteTrip(Long id){
+        em.remove(em.find(Trip.class, id));
+    }
 }

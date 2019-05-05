@@ -25,8 +25,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-    public boolean createUser(String email, String name, String surname, String password) {
-
+    public boolean createUser(String email, String name, String surname, String password, Boolean isAdmin) {
         String hashedPassword = passwordEncoder.encode(password);
 
         if (em.find(User.class, email) != null) {
@@ -38,35 +37,18 @@ public class UserService {
         user.setName(name);
         user.setSurname(surname);
         user.setPassword(hashedPassword);
-        user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);
-
-        em.persist(user);
-
-        return true;
-    }
-
-
-    public boolean createAdmin(String email, String name, String surname, String password) {
-
-        String hashedPassword = passwordEncoder.encode(password);
-
-        if (em.find(User.class, email) != null) {
-            return false;
+        if(isAdmin){
+            user.setRoles(Collections.singleton("ROLE_ADMIN"));
+        }else{
+            user.setRoles(Collections.singleton("ROLE_USER"));
         }
 
-        User user = new User();
-        user.setEmail(email);
-        user.setName(name);
-        user.setSurname(surname);
-        user.setPassword(hashedPassword);
-        user.setRoles(Collections.singleton("ADMIN"));
-        user.setEnabled(true);
-
         em.persist(user);
 
         return true;
     }
+
 
     public User getUser(String email){
         return em.find(User.class, email);
@@ -87,8 +69,6 @@ public class UserService {
         User user = em.find(User.class, email);
         user.setEnabled(!user.getEnabled());
     }
-
-
 
 
 }

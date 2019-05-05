@@ -30,8 +30,34 @@ public abstract class LayoutPO extends PageObject {
         return po;
     }
 
-    public IndexPO doLogout(){
+    public IndexPO doLogin(String email, String password) {
+        clickAndWait("linkToLoginId");
+        IndexPO po = new IndexPO(this);
 
+        setText("username", email);
+        setText("password", password);
+        clickAndWait("submit");
+
+        assertTrue(po.isOnPage());
+
+        return po;
+
+    }
+
+    public IndexPO doLoginWithDisabledUser(String email, String password) {
+        clickAndWait("linkToLoginId");
+        IndexPO po = new IndexPO(this);
+
+        setText("username", email);
+        setText("password", password);
+        clickAndWait("submit");
+
+        return po;
+    }
+
+
+
+        public IndexPO doLogout(){
         clickAndWait("logoutId");
 
         IndexPO po = new IndexPO(this);
@@ -41,7 +67,6 @@ public abstract class LayoutPO extends PageObject {
     }
 
     public boolean isLoggedIn(){
-
         return getDriver().findElements(By.id("logoutId")).size() > 0 &&
                 getDriver().findElements((By.id("linkToSignupId"))).isEmpty();
     }

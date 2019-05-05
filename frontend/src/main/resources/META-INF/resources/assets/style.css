@@ -2,20 +2,13 @@ body {
     background-color: #D5D5D5;
     width:100%;
 }
-/*
-#9099A2
-#6D7993
-#96858F
-*/
 
 
-.tableBook {
+.tableTrip {
     background-color:#9099A2;
 }
 
-.sellerName {
-    background-color:#9099A2;
-}
+
 
 .defaultBtn {
     width: 100px;
@@ -61,4 +54,8 @@ body {
 
 .content-container {
     width: 100%;
+}
+
+#adminNotifyText{
+    color: red;
 }

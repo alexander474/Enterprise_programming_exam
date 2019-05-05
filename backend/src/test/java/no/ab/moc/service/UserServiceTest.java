@@ -19,11 +19,11 @@ public class UserServiceTest extends ServiceTestBase {
     UserService userService;
 
     public boolean createUser(String email){
-        return userService.createUser(email, "foo", "bar", "1234");
+        return userService.createUser(email, "foo", "bar", "1234", false);
     }
 
     public boolean createAdmin(String email){
-        return userService.createAdmin(email, "foo", "bar", "1234");
+        return userService.createUser(email, "foo", "bar", "1234", true);
     }
 
 
@@ -65,7 +65,7 @@ public class UserServiceTest extends ServiceTestBase {
         String name = "foo";
         String surname = "bar";
         String email = "foo@bar.com";
-        boolean created = userService.createUser(email, name, surname, "1234");
+        boolean created = userService.createUser(email, name, surname, "1234", false);
 
         assertTrue(created);
 

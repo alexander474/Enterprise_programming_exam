@@ -23,7 +23,7 @@
         <h3>Books</h3>
 
         <h:form prependId="false">
-            <h:dataTable value="#{tripsController.allTrips}" var="trip" border="1" id="booksTable" class="tableBook">
+            <h:dataTable value="#{tripsController.allTrips}" var="trip" border="1" id="tripsTable" class="tableTrip">
                 <h:column>
                     <f:facet name="header">Title</f:facet>
                     <h:outputLabel value="#{trip.title}"
@@ -62,7 +62,7 @@
 
                 <h:column>
                     <f:facet name="header">Details</f:facet>
-                    <h:commandButton id="detailBtn"
+                    <h:commandButton id="tripDetailBtn"
                                      value="Details"
                                      class="detailBtn"
                                      action="#{tripsController.toTripDetailsPage(trip)}"/>
