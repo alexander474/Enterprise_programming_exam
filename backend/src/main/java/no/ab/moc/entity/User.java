@@ -32,6 +32,9 @@ public class User {
     @NotNull
     private Boolean enabled;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Rank> ranks;
+
 
 
     public User() {
@@ -86,4 +89,11 @@ public class User {
     }
 
 
+    public List<Rank> getRanks() {
+        return ranks;
+    }
+
+    public void setRanks(List<Rank> ranks) {
+        this.ranks = ranks;
+    }
 }

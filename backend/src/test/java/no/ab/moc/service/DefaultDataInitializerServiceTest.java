@@ -21,11 +21,18 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 public class DefaultDataInitializerServiceTest {
 
 
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private RankService rankService;
+
 
 
     @Test
     public void testInit() {
-
+        assertTrue(itemService.getAllItems().size() > 0);
+        assertTrue(rankService.getAllRanks().size() > 0);
 
     }
 }

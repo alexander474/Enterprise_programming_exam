@@ -23,6 +23,8 @@ public class ResetService {
         Query query = em.createNativeQuery("delete from user_roles");
         query.executeUpdate();
 
+        deleteEntities(Rank.class);
+        deleteEntities(Item.class);
         deleteEntities(User.class);
     }
 
