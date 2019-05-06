@@ -24,7 +24,7 @@ public class IndexPO extends LayoutPO {
 
     @Override
     public boolean isOnPage() {
-        return getDriver().getTitle().contains("Title");
+        return getDriver().getTitle().contains("Home");
     }
 
     public boolean isLoggedIn() {
