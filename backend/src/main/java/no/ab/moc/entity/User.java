@@ -32,7 +32,7 @@ public class User {
     @NotNull
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Rank> ranks;
 
 

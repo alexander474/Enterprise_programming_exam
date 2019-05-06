@@ -27,7 +27,7 @@ public class Item {
     private String category;
 
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Rank> ranks = new ArrayList<>();
 
     public Long getId() {

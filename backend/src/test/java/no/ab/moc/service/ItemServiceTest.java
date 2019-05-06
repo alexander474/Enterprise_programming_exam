@@ -20,6 +20,16 @@ public class ItemServiceTest extends ServiceTestBase {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private RankService rankService;
+
+    @Autowired
+    private UserService userService;
+
+    public boolean createUser(String email){
+        return userService.createUser(email, "foo", "bar", "1234", false);
+    }
+
     @Test
     public void testCreateItem(){
         int sizeOfItems = itemService.getAllItems().size();
@@ -38,10 +48,29 @@ public class ItemServiceTest extends ServiceTestBase {
         assertEquals(sizeOfItems+1, list.size());
     }
 
-    @Test void testGetItem(){
+    @Test
+    public void testGetItem(){
         String title = "testTitle";
         long id = itemService.createItem(title, "testDesc", "action");
         Item item = itemService.getItem(id);
         assertEquals(title, item.getTitle());
     }
+
+    @Test
+    public void testGetItemRanks(){
+        String title = "testTitle";
+        String email = "foo@bar.com";
+        String comment = "testComment";
+        int score = 4;
+        boolean createdUser = createUser(email);
+        long id = itemService.createItem(title, "testDesc", "action");
+        int sizeOfRanks = itemService.getItem(id).getRanks().size();
+        long rankId = rankService.createRank(email, id, comment, score);
+        Item item = itemService.getItem(id);
+        assertEquals(title, item.getTitle());
+        assertEquals(sizeOfRanks+1, itemService.getItem(id).getRanks().size());
+
+    }
+
+
 }

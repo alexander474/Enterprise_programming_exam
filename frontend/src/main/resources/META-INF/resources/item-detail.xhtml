@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        Details
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form prependId="false">
+
+            <h4><h:outputLabel value="Title: #{mainController.item.title}"/></h4>
+            <h:outputLabel value="#{mainController.item.description}" />
+            <br/>
+            <h:outputLabel value="#{mainController.item.category}" />
+            <br/>
+            <h:outputLabel value="Score: #{mainController.rankAverage}/5 by #{mainController.item.ranks.size()} user(s)"/>
+            <br/>
+            <h4><h:outputLabel value="Ratings: "/></h4>
+            <dl>
+                <ui:repeat value="#{mainController.item.ranks}" var="rank">
+                    <dt>
+                        <h:outputLabel value="Score: #{rank.score}"/>
+                    </dt>
+                    <dd>
+                        <h:outputLabel value="#{rank.user.name}: #{rank.comment}"/>
+                    </dd>
+                </ui:repeat>
+            </dl>
+
+            <sec:anonymous>
+                <p>Log in to comment and rank the movie</p>
+            </sec:anonymous>
+        </h:form>
+
+        <h3><h:outputLabel prependId="false" rendered="#{mainController.item.ranks.size() eq  0}" value="There is no ranks"/></h3>
+    </ui:define>
+
+</ui:composition>
+</html>

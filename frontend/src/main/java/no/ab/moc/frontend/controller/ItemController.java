@@ -19,5 +19,9 @@ public class ItemController {
         return itemService.getAllItems();
     }
 
+    public List<Item> getAllitemsSortedByScore(String category){
+        return itemService.getAllItemsSortedByScore(category);
+    }
+
 }
 
