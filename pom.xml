@@ -126,13 +126,13 @@
                     <artifactId>heroku-maven-plugin</artifactId>
                     <version>2.0.2</version>
                     <configuration>
-                        <appName>mocexam</appName>
+                        <appName>exam</appName>
                         <includeTarget>false</includeTarget>
                         <includes>
-                            <include>target/mocexam-exec.jar</include>
+                            <include>target/exam-exec.jar</include>
                         </includes>
                         <processTypes>
-                            <web>java -Dserver.port=$PORT -jar target/mocexam-exec.jar</web>
+                            <web>java -Dserver.port=$PORT -jar target/exam-exec.jar</web>
                         </processTypes>
                     </configuration>
                 </plugin>
@@ -169,7 +169,7 @@
                         <forkCount>1</forkCount>
                         <redirectTestOutputToFile>true</redirectTestOutputToFile>
                         <rerunFailingTestsCount>3</rerunFailingTestsCount>
-                        <argLine>-Xms1024m -Xmx4096m</argLine>
+                        <!--<argLine>-Xms1024m -Xmx4096m</argLine>-->
                     </configuration>
                     <executions>
                         <execution>

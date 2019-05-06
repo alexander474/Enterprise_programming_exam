@@ -15,12 +15,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>no.kristiania.ab.mocexam</groupId>
+            <groupId>no.kristiania.ab.backend</groupId>
             <artifactId>backend</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>no.kristiania.ab.mocexam</groupId>
+            <groupId>no.kristiania.ab.frontend</groupId>
             <artifactId>frontend</artifactId>
             <version>${project.version}</version>
         </dependency>
