@@ -10,13 +10,11 @@
 <ui:composition template="/layout.xhtml">
 
     <ui:define name="title">
-        Title
+        Home
     </ui:define>
 
 
     <ui:define name="content">
-
-        <h2>My Site</h2>
 
         <sec:authenticated>
             <h:outputText value="Welcome  #{userInfoController.currentUserFullName}!"/>
@@ -31,6 +29,7 @@
             You are not logged in!
         </sec:anonymous>
 
+        <br/><br/>
         <h:form prependId="false">
             <h:selectOneMenu value="#{filterController.dropDownSelect}"
                              onchange="submit()">
@@ -39,6 +38,7 @@
                                itemLabel="#{category}"/>
 
             </h:selectOneMenu>
+            <br/>
             <h:dataTable value="#{itemController.allItemsSortedByScore}" var="item" border="1" id="itemsTable" class="tableItem">
                 <h:column>
                     <f:facet name="header">Title</f:facet>
@@ -57,6 +57,17 @@
                     <h:outputLabel value="#{item.category}"
                                    class="itemCategory"
                                    id="category"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Rating</f:facet>
+                    <h:outputLabel value="#{mainController.getRankAverage(item.id)}/5"
+                                   rendered="#{mainController.getRankAverage(item.id)>0.01}"
+                                   class="itemRating"
+                                   id="rating"/>
+                    <h:outputLabel value="No rating"
+                                   rendered="#{mainController.getRankAverage(item.id)==0}"
+                                   class="itemRating"
+                                   id="ratingEmpty"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Details</f:facet>

@@ -21,22 +21,25 @@ public class RankingController {
     MainController mainController;
 
     private String comment = "";
-    private int score = 0;
+    private int score = 1;
 
     public String createRanking(){
-        if(comment.isEmpty() || score < 0 || score > 5){
+        if(comment.isEmpty() || score <= 0 || score > 5){
             return "/item-detail.jsf&faces-redirect=true&error=true";
         }
         rankService.createRank(userInfoController.getUserEmail(), mainController.getItem().getId(), getComment(), getScore());
-        return "/item-detail.jsf&faces-redirect=true";
+        return "/item-detail.jsf&faces-redirect=true&success=true";
     }
 
-    public String updateRanking(Rank rank){
-        if(comment.isEmpty() || score<0 || score>5){
+    public String updateRanking(){
+        if(comment.isEmpty() || score <= 0 || score > 5 || !mainController.userHasRankedItem()){
             return "/item-detail.jsf&faces-redirect=true&error=true";
         }
+        Rank rank = mainController.getUserRank();
+        rank.setComment(comment);
+        rank.setScore(score);
         rankService.updateRank(rank);
-        return "/item-detail.jsf&faces-redirect=true";
+        return "/item-detail.jsf&faces-redirect=true&success=true";
     }
 
     public String getComment() {

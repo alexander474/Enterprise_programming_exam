@@ -44,6 +44,10 @@ public class MainController implements Serializable {
         return itemService.getItemRankAverage(item.getId());
     }
 
+    public Double getRankAverage(Long id){
+        return itemService.getItemRankAverage(id);
+    }
+
     public Item getItem() {
         return item;
     }

@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
+
 
 @Service
 @Transactional
@@ -65,10 +65,11 @@ public class ItemService {
         }else{
             query = em.createQuery("select i from Item i", Item.class);
         }
-        List<Item> list = query.getResultList();
-        list.stream().filter(Objects::isNull)
-                .sorted(Comparator.comparingDouble(i->getItemRankAverage(i.getId())));
-
+        // SOURCE https://stackoverflow.com/questions/36720544/sorting-finding-average-comparing-and-much-more-in-2d-object-array/36720771#36720771
+        List<Item> list = query.getResultList().stream()
+                            .sorted(Comparator.comparingDouble(i->getItemRankAverage(i.getId())))
+                            .collect(Collectors.toList());
+        Collections.reverse(list);
         return list;
     }
 

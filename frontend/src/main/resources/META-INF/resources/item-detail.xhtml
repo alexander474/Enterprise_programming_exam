@@ -36,35 +36,46 @@
                 </ui:repeat>
             </dl>
 
-            <h3><h:outputLabel value="Comment or score cannot be empty."
+            <h3><h:outputLabel class="errorText"
+                               value="Fields can not be empty! score cannot be 0"
                                rendered="${!empty param['error']}"/></h3>
 
-            <h3><h:outputLabel value="Rating complete"
+            <h3><h:outputLabel class="successText"
+                               value="Rating created/updated!"
                                rendered="${!empty param['success']}"/></h3>
             <sec:authenticated>
-                <h:column>
-                    <f:facet name="header">Comment</f:facet>
-                    <h:inputText id="commentBox"
-                                     class="commentsBox"
-                                     value="#{rankingController.comment}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Score</f:facet>
-                    <h:inputText id="scoreBox"
-                                     class="scoresBox"
-                                     value="#{rankingController.score}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Post Comment/Score</f:facet>
-                    <h:commandButton value="update"
-                                     id="update"
-                                     rendered="#{mainController.userHasRankedItem()}"
-                                     action="#{rankingController.updateRanking(mainController.userRank)}"/>
-                    <h:commandButton value="Submit"
-                                     id="create"
-                                     rendered="#{!mainController.userHasRankedItem()}"
-                                     action="#{rankingController.createRanking()}"/>
-                </h:column>
+                <br/>
+                <h3>Create/update rating</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <h:outputText value="Comment: "/>
+                        </td>
+                        <td>
+                            <h:inputText id="addComment" value="#{rankingController.comment}" class="rankTable"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Score: "/>
+                        </td>
+                        <td>
+                            <h:inputText id="addScore" value="#{rankingController.score}" class="rankTable"/>
+                        </td>
+                    </tr>
+                </table>
+                <h:commandButton value="update"
+                                 id="update"
+                                 class="defaultBtn"
+                                 rendered="#{mainController.userHasRankedItem()}"
+                                 action="#{rankingController.updateRanking}">
+                </h:commandButton>
+                <h:commandButton value="Submit"
+                                 id="create"
+                                 class="defaultBtn"
+                                 rendered="#{!mainController.userHasRankedItem()}"
+                                 action="#{rankingController.createRanking}">
+                </h:commandButton>
             </sec:authenticated>
             <sec:anonymous>
                 <p>Log in to comment and rank the movie</p>
