@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.OptionalDouble;
 
 @Named
 @ApplicationScoped

@@ -1,5 +1,9 @@
 package no.ab.moc.frontend.controller.admin;
 
+import no.ab.moc.entity.Item;
+import no.ab.moc.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.Date;
@@ -8,25 +12,30 @@ import java.util.Date;
 @RequestScoped
 public class AdminController {
 
+    @Autowired
+    private ItemService itemService;
 
-    private String title, description, location;
-    private double cost;
-    private Date date;
 
-    private boolean tripExists(String title){
-        boolean exists = false;
-        return exists;
-    }
+    private String title, description, category;
 
-    public String createTrip(){
-        if(title.isEmpty()||description.isEmpty()||location.isEmpty()
-        ||cost<=0){
-            return "/admin/trip-registery.jsf?faces-redirect=true&error=true";
+
+    private boolean itemExsists(String title){
+        boolean exist = false;
+        for(Item i : itemService.getAllItems()){
+            if(i.getTitle().equalsIgnoreCase(title)) exist = true;
         }
-        return "/admin/trip-registry.jsf?faces-redirect=true&success=true";
+        return exist;
     }
 
-    public void deleteTrip(Long tripId){
+
+    public String createItem(){
+        if(title.isEmpty()||description.isEmpty()||category.isEmpty()||itemExsists(title)){
+            return "/admin/create-item.jsf?faces-redirect=true&error=true";
+        }
+
+        itemService.createItem(title, description, category);
+
+        return "/admin/create-item.jsf?faces-redirect=true&success=true";
     }
 
 
@@ -46,27 +55,11 @@ public class AdminController {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCategory() {
+        return category;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

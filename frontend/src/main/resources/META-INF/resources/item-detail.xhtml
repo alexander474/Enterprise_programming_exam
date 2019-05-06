@@ -17,10 +17,10 @@
 
         <h:form prependId="false">
 
-            <h4><h:outputLabel value="Title: #{mainController.item.title}"/></h4>
+            <h3><h:outputLabel value="Title: #{mainController.item.title}"/></h3>
             <h:outputLabel value="#{mainController.item.description}" />
-            <br/>
-            <h:outputLabel value="#{mainController.item.category}" />
+            <br/><br/>
+            <h:outputLabel value="Category: #{mainController.item.category}" />
             <br/>
             <h:outputLabel value="Score: #{mainController.rankAverage}/5 by #{mainController.item.ranks.size()} user(s)"/>
             <br/>
@@ -28,15 +28,19 @@
             <dl>
                 <ui:repeat value="#{mainController.item.ranks}" var="rank">
                     <dt>
-                        <h:outputLabel value="Score: #{rank.score}"/>
+                        <h:outputLabel value="#{rank.user.name}: #{rank.score}/5"/>
                     </dt>
                     <dd>
-                        <h:outputLabel value="#{rank.user.name}: #{rank.comment}"/>
+                        <h:outputLabel value="Comment: #{rank.comment}"/>
                     </dd>
                 </ui:repeat>
             </dl>
 
+            <h3><h:outputLabel value="Comment or score cannot be empty."
+                               rendered="${!empty param['error']}"/></h3>
 
+            <h3><h:outputLabel value="Rating complete"
+                               rendered="${!empty param['success']}"/></h3>
             <sec:authenticated>
                 <h:column>
                     <f:facet name="header">Comment</f:facet>
@@ -52,7 +56,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Post Comment/Score</f:facet>
-                    <h:commandButton value="Submit"
+                    <h:commandButton value="update"
                                      id="update"
                                      rendered="#{mainController.userHasRankedItem()}"
                                      action="#{rankingController.updateRanking(mainController.userRank)}"/>

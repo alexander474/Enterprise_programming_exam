@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        Admin - Registry
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form prependId="false">
+            <h3>Create Item</h3>
+            <h3><h:outputLabel class="errorText"
+                               value="Fields can not be empty!"
+                               rendered="${!empty param['error']}"/></h3>
+
+            <h3><h:outputLabel class="successText"
+                               value="Item created!"
+                               rendered="${!empty param['success']}"/></h3>
+
+            <table>
+                <tr>
+                    <td><h:outputText value="Title: "/></td>
+                    <td><h:inputText id="addTitle" value="#{adminController.title}" class="createItem"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="Description: "/></td>
+                    <td><h:inputText id="addDescription" value="#{adminController.description}" class="createItem"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="Category: "/></td>
+                    <td><h:inputText id="addCategory" value="#{adminController.category}" class="createItem"/></td>
+                </tr>
+            </table>
+            <h:commandButton
+                    value="Create item"
+                    id="addBtn"
+                    class="defaultBtn"
+                    action="#{adminController.createItem}">
+            </h:commandButton>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</html>

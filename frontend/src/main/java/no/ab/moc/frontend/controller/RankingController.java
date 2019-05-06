@@ -20,15 +20,23 @@ public class RankingController {
     @Autowired
     MainController mainController;
 
-    private String comment;
-    private int score;
+    private String comment = "";
+    private int score = 0;
 
-    public void createRanking(){
+    public String createRanking(){
+        if(comment.isEmpty() || score < 0 || score > 5){
+            return "/item-detail.jsf&faces-redirect=true&error=true";
+        }
         rankService.createRank(userInfoController.getUserEmail(), mainController.getItem().getId(), getComment(), getScore());
+        return "/item-detail.jsf&faces-redirect=true";
     }
 
-    public void updateRanking(Rank rank){
+    public String updateRanking(Rank rank){
+        if(comment.isEmpty() || score<0 || score>5){
+            return "/item-detail.jsf&faces-redirect=true&error=true";
+        }
         rankService.updateRank(rank);
+        return "/item-detail.jsf&faces-redirect=true";
     }
 
     public String getComment() {
