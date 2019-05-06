@@ -36,6 +36,32 @@
                 </ui:repeat>
             </dl>
 
+
+            <sec:authenticated>
+                <h:column>
+                    <f:facet name="header">Comment</f:facet>
+                    <h:inputText id="commentBox"
+                                     class="commentsBox"
+                                     value="#{rankingController.comment}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Score</f:facet>
+                    <h:inputText id="scoreBox"
+                                     class="scoresBox"
+                                     value="#{rankingController.score}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Post Comment/Score</f:facet>
+                    <h:commandButton value="Submit"
+                                     id="update"
+                                     rendered="#{mainController.userHasRankedItem()}"
+                                     action="#{rankingController.updateRanking(mainController.userRank)}"/>
+                    <h:commandButton value="Submit"
+                                     id="create"
+                                     rendered="#{!mainController.userHasRankedItem()}"
+                                     action="#{rankingController.createRanking()}"/>
+                </h:column>
+            </sec:authenticated>
             <sec:anonymous>
                 <p>Log in to comment and rank the movie</p>
             </sec:anonymous>

@@ -1,6 +1,7 @@
 package no.ab.moc.frontend.controller;
 
 import no.ab.moc.entity.Item;
+import no.ab.moc.entity.Rank;
 import no.ab.moc.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,10 +22,23 @@ public class MainController implements Serializable {
 
 
     private Item item;
+    private Rank userRank;
 
     public String toItemDetailPage(Item item){
         setItem(item);
         return "/item-detail.jsf&faces-redirect=true";
+    }
+
+    public Boolean userHasRankedItem(){
+        if(itemService.userHasRankedItem(userInfoController.getUserEmail(), item.getId())) {
+            setUserRank(itemService.getItemUserRank(userInfoController.getUserEmail(), item.getId()));
+            return true;
+        }
+        return false;
+    }
+
+    public Rank getUserRank(){
+        return this.userRank;
     }
 
     public Double getRankAverage(){
@@ -37,5 +51,9 @@ public class MainController implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public void setUserRank(Rank userRank) {
+        this.userRank = userRank;
     }
 }

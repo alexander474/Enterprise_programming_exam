@@ -32,7 +32,14 @@
         </sec:anonymous>
 
         <h:form prependId="false">
-            <h:dataTable value="#{itemController.getAllitemsSortedByScore('ACTION')}" var="item" border="1" id="itemsTable" class="tableItem">
+            <h:selectOneMenu value="#{filterController.dropDownSelect}"
+                             onchange="submit()">
+                <f:selectItems var="category"
+                               value="#{filterController.allCategories}"
+                               itemLabel="#{category}"/>
+
+            </h:selectOneMenu>
+            <h:dataTable value="#{itemController.allItemsSortedByScore}" var="item" border="1" id="itemsTable" class="tableItem">
                 <h:column>
                     <f:facet name="header">Title</f:facet>
                     <h:outputLabel value="#{item.title}"

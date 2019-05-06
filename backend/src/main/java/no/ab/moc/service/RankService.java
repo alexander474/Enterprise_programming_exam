@@ -37,7 +37,7 @@ public class RankService {
         }
         Item item = em.find(Item.class, itemId);
         if(item == null){
-            throw new IllegalArgumentException("Trip " + itemId + " does not exist");
+            throw new IllegalArgumentException("Item " + itemId + " does not exist");
         }
         if(score<1 || score>5){
             throw new IllegalArgumentException("Cannot create rank with size "+score);
