@@ -31,8 +31,7 @@ public abstract class SeleniumTestBase {
 
     private IndexPO home;
     private UsersPO users;
-    private TripsPO trips;
-    private TripDetailPO tripDetail;
+
 
     @Autowired
     private UserService userService;
@@ -128,16 +127,5 @@ public abstract class SeleniumTestBase {
         assertTrue(home.isLoggedIn());
     }
 
-    @Test
-    public void testSeeTrips(){
-        String email = getUniqueId();
-        String password = "a";
-        assertTrue(userService.createUser(email,"password","admin",password, true));
-        assertFalse(home.isLoggedIn());
-        home.doLogin(email,password);
-        assertTrue(home.isLoggedIn());
-        trips = home.toTrips();
-        assertEquals(trips.getTripCount(), 4);
-    }
 
 }

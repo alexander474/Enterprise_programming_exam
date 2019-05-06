@@ -21,17 +21,11 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 public class DefaultDataInitializerServiceTest {
 
 
-    @Autowired
-    private TripService tripService;
 
-    @Autowired
-    private PurchaseService purchaseService;
 
     @Test
     public void testInit() {
 
-        assertTrue(tripService.getAllTrips().size() > 0);
-        assertTrue(purchaseService.getAllPurchases().size() > 0);
 
     }
 }

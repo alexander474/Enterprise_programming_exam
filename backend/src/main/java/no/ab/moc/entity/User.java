@@ -32,8 +32,6 @@ public class User {
     @NotNull
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Purchase> purchases;
 
 
     public User() {
@@ -87,11 +85,5 @@ public class User {
         this.enabled = enabled;
     }
 
-    public List<Purchase> getPurchases() {
-        return purchases;
-    }
 
-    public void setPurchases(List<Purchase> purchases) {
-        this.purchases = purchases;
-    }
 }

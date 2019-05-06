@@ -40,11 +40,4 @@ public class IndexPO extends LayoutPO {
         return po;
     }
 
-    public TripsPO toTrips(){
-        clickAndWait("linkToTripsId");
-        TripsPO po = new TripsPO(this);
-
-        assertTrue(po.isOnPage());
-        return po;
-    }
 }

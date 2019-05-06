@@ -1,11 +1,5 @@
 package no.ab.moc.frontend.controller.admin;
 
-import no.ab.moc.entity.Purchase;
-import no.ab.moc.entity.Trip;
-import no.ab.moc.service.PurchaseService;
-import no.ab.moc.service.TripService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.Date;
@@ -14,11 +8,6 @@ import java.util.Date;
 @RequestScoped
 public class AdminController {
 
-    @Autowired
-    TripService tripService;
-
-    @Autowired
-    PurchaseService purchaseService;
 
     private String title, description, location;
     private double cost;
@@ -26,9 +15,6 @@ public class AdminController {
 
     private boolean tripExists(String title){
         boolean exists = false;
-        for(Trip trip : tripService.getAllTrips()){
-            if(trip.getTitle().equalsIgnoreCase(title)) exists = true;
-        }
         return exists;
     }
 
@@ -37,12 +23,10 @@ public class AdminController {
         ||cost<=0){
             return "/admin/trip-registery.jsf?faces-redirect=true&error=true";
         }
-        tripService.createTrip(title,description,cost,location,date);
         return "/admin/trip-registry.jsf?faces-redirect=true&success=true";
     }
 
     public void deleteTrip(Long tripId){
-        tripService.deleteTrip(tripId);
     }
 
 
