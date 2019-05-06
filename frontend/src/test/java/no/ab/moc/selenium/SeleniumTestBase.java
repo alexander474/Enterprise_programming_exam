@@ -2,6 +2,7 @@ package no.ab.moc.selenium;
 
 
 import no.ab.moc.selenium.po.*;
+import no.ab.moc.selenium.po.admin.CreateItemPO;
 import no.ab.moc.selenium.po.admin.UsersPO;
 import no.ab.moc.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +32,7 @@ public abstract class SeleniumTestBase {
 
     private IndexPO home;
     private UsersPO users;
+    private CreateItemPO createItem;
 
 
     @Autowired
@@ -64,9 +66,9 @@ public abstract class SeleniumTestBase {
         assertFalse(home.isLoggedIn());
 
         String email = getUniqueId();
-        String password = "123456789";
-        String name = "foo";
-        String surName = "bar";
+        String password = getUniqueId();
+        String name = getUniqueId();
+        String surName = getUniqueId();
         home = createNewUser(email, password, name, surName);
 
         assertTrue(home.isLoggedIn());
@@ -81,8 +83,8 @@ public abstract class SeleniumTestBase {
     @Test
     public void testLoginAndLogout(){
         String user = getUniqueId();
-        String password = "a";
-        String name = "name";
+        String password = getUniqueId();
+        String name = getUniqueId();
         assertTrue(userService.createUser(user,name,"admin",password, false));
 
         assertFalse(home.isLoggedIn());
@@ -95,9 +97,9 @@ public abstract class SeleniumTestBase {
     @Test
     public void testDisableAndEnableUser(){
         String user = getUniqueId();
-        String userPassword = "a";
+        String userPassword = getUniqueId();
         String admin = getUniqueId();
-        String adminPassword = "b";
+        String adminPassword = getUniqueId();
 
         assertTrue(userService.createUser(user,"password","admin",userPassword, false));
         assertTrue(userService.createUser(admin,"password","admin",adminPassword, true));
@@ -125,6 +127,27 @@ public abstract class SeleniumTestBase {
 
         home.doLogin(user, userPassword);
         assertTrue(home.isLoggedIn());
+    }
+
+    @Test
+    public void testCreateItem(){
+        assertFalse(home.isLoggedIn());
+        String email = getUniqueId();
+        String password = "a";
+        assertTrue(userService.createUser(email, "foo", "bar", password, true));
+
+        home.doLogin(email, password);
+        assertTrue(home.isLoggedIn());
+        int itemsCount = home.getAmountOfDisplayedItems();
+
+
+        createItem = home.toCreateItem();
+        String title = getUniqueId();
+        String description = getUniqueId();
+        String category = "ACTION";
+        createItem.createItem(title, description, category);
+        home.toStartingPage();
+        assertEquals(itemsCount+1, home.getAmountOfDisplayedItems());
     }
 
 

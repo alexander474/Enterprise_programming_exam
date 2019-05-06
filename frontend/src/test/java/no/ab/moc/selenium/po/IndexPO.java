@@ -1,9 +1,13 @@
 package no.ab.moc.selenium.po;
 
 import no.ab.moc.selenium.PageObject;
+import no.ab.moc.selenium.po.admin.CreateItemPO;
 import no.ab.moc.selenium.po.admin.UsersPO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,4 +44,19 @@ public class IndexPO extends LayoutPO {
         return po;
     }
 
+    public CreateItemPO toCreateItem() {
+        clickAndWait("createItemId");
+
+        CreateItemPO po = new CreateItemPO(this);
+        assertTrue(po.isOnPage());
+        return po;
+    }
+
+
+    public int getAmountOfDisplayedItems(){
+        List<WebElement> e = driver.findElements(
+                By.xpath("//table[@id='itemsTable']/tbody/tr")
+        );
+        return e.size();
+    }
 }
