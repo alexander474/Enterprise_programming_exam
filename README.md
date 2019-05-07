@@ -10,13 +10,12 @@ All requirements is completed and some extra functionalities has been added.
 
 Run "LocalApplicationRunner" and it will run on localhost:8080
 
-- Login
-  - Administrator
-    - Email: admin@admin.com
-    - Password: a
-  - User
-    - Email: foo@bar.com
-    - Password: a
+- Administrator
+  - Email: admin@admin.com
+  - Password: a
+- User
+  - Email: foo@bar.com
+  - Password: a
 
 ### Testing
 
