@@ -8,9 +8,11 @@ All requirements is completed and some extra functionalities has been added. Whe
 
 [Course Repository]: https://github.com/arcuri82/testing_security_development_enterprise_systems	"Course Repository"
 
+------
 
 
-### How to run
+
+## Run Application
 
 Run "LocalApplicationRunner" and it will run on localhost:8080
 
@@ -21,7 +23,11 @@ Run "LocalApplicationRunner" and it will run on localhost:8080
   - Email: foo@bar.com
   - Password: a
 
-### Testing
+------
+
+
+
+## Run Tests
 
 ```
 mvn clean install
@@ -29,6 +35,8 @@ mvn clean install
 if dependencies is installed then you could run:
 mvn verify
 ```
+
+------
 
 
 
@@ -38,9 +46,11 @@ mvn verify
 
 I have added administrator option to the user. The administrator gets access to enable/disable user accounts and create new items. This is tested by testDisableAndEnableUser() and testCreateItem().
 
+------
 
 
-#### Coverage
+
+## Coverage
 
 Frontend: 91%
 
