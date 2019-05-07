@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.openqa.selenium.WebDriver;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -130,6 +131,35 @@ public abstract class SeleniumTestBase {
     }
 
     @Test
+    public void testFilterItems(){
+        String category = "ACTION";
+        String defaultCategory = "ALL";
+        assertEquals(home.getCurrentSelectedCategory(), defaultCategory);
+        home.filterCategories(category);
+        assertEquals(home.getCurrentSelectedCategory(), category);
+        int item_count_after_filter = home.getAmountOfDisplayedItems();
+
+        String email = getUniqueId();
+        String password = "a";
+        assertTrue(userService.createUser(email, "foo", "bar", password, true));
+
+        home.doLogin(email, password);
+        assertTrue(home.isLoggedIn());
+
+
+        createItem = home.toCreateItem();
+        String title = getUniqueId();
+        String description = getUniqueId();
+        createItem.createItem(title, description, category);
+        home.toStartingPage();
+        int item_count_after_new_created_item = home.getAmountOfDisplayedItems();
+
+        //Checking the amount of items in a category before and after adding a new one with that category
+        //Then checking that the value is incremented by 1
+        assertEquals(item_count_after_filter+1, item_count_after_new_created_item);
+    }
+
+    @Test
     public void testCreateItem(){
         assertFalse(home.isLoggedIn());
         String email = getUniqueId();
@@ -148,6 +178,14 @@ public abstract class SeleniumTestBase {
         createItem.createItem(title, description, category);
         home.toStartingPage();
         assertEquals(itemsCount+1, home.getAmountOfDisplayedItems());
+    }
+
+    @Test
+    public void testItemSorting(){
+        List<Double> list = home.getItemsAverageRatings();
+        for(int i=0; i<list.size()-1; i++){
+            assertTrue(list.get(i) >= list.get(i+1));
+        }
     }
 
 

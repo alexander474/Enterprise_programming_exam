@@ -32,7 +32,8 @@
         <br/><br/>
         <h:form prependId="false">
             <h:selectOneMenu value="#{filterController.dropDownSelect}"
-                             onchange="submit()">
+                             onchange="submit()"
+                             id="categoryFilterId">
                 <f:selectItems var="category"
                                value="#{filterController.allCategories}"
                                itemLabel="#{category}"/>
@@ -66,7 +67,7 @@
                                    id="rating"/>
                     <h:outputLabel value="No rating"
                                    rendered="#{mainController.getRankAverage(item.id)==0}"
-                                   class="itemRating"
+                                   class="itemEmptyRating"
                                    id="ratingEmpty"/>
                 </h:column>
                 <h:column>
