@@ -39,9 +39,7 @@ If the dependencies have been downloaded then you can just run:
 
 The exam states that the ratings are some kind of "stars", but I chose not to display visual stars as that would just be design work but rather use the data type Integer/int to represent stars where the valid values would be from 1-5 as stated in the exam. When the average is displaying the value i'm using Double with no limit on the decimals because this is not stated in the exam.
 
-I got the movie information from imdb.com Top 250. I just picked some of the first items displayed.
-
-
+I got the movie information from imdb.com Top 250. I just picked some of the first items displayed to populate my items as the default information.
 
 ## Extras
 
@@ -55,6 +53,18 @@ public void testDisableAndEnableUser()
 
 ```java
 public void testCreateItem()
+```
+
+#### Sorting and filtering categories
+
+I added sorting on the average, as extra i added the sorting to work on the data type Double and down to 0.01. I also added the the filtering to work with categories and as extra the filtering also works with new created items that have a completely new category. These extras is tested by: 
+
+```java
+public void testItemSorting()
+```
+
+```java
+public void testFilterItems()
 ```
 
 
