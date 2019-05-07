@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,6 +35,8 @@ public abstract class SeleniumTestBase {
     private IndexPO home;
     private UsersPO users;
     private CreateItemPO createItem;
+    private ItemDetailPO itemDetail;
+    private UserDetailPO userDetail;
 
 
     @Autowired
@@ -95,20 +98,32 @@ public abstract class SeleniumTestBase {
         assertTrue(home.getDriver().getPageSource().contains(name));
     }
 
+
     @Test
     public void testDisableAndEnableUser(){
         String user = getUniqueId();
         String userPassword = getUniqueId();
         String admin = getUniqueId();
         String adminPassword = getUniqueId();
+        String userName = getUniqueId();
+        String adminName = getUniqueId();
+        String userSurName = getUniqueId();
+        String adminSurName = getUniqueId();
 
-        assertTrue(userService.createUser(user,"password","admin",userPassword, false));
-        assertTrue(userService.createUser(admin,"password","admin",adminPassword, true));
+        assertTrue(userService.createUser(user,userName,userSurName,userPassword, false));
+        assertTrue(userService.createUser(admin,adminName,adminSurName,adminPassword, true));
 
         assertFalse(home.isLoggedIn());
         home.doLogin(admin, adminPassword);
         assertTrue(home.isLoggedIn());
         users = home.toUsers();
+
+        assertTrue(users.textExistsOnPage(user));
+        assertTrue(users.textExistsOnPage(userName));
+        assertTrue(users.textExistsOnPage(userSurName));
+        assertTrue(users.textExistsOnPage(admin));
+        assertTrue(users.textExistsOnPage(adminName));
+        assertTrue(users.textExistsOnPage(adminSurName));
 
         int userCount = users.getAmountOfUsers();
         users.disableUser(user);
@@ -186,6 +201,79 @@ public abstract class SeleniumTestBase {
         for(int i=0; i<list.size()-1; i++){
             assertTrue(list.get(i) >= list.get(i+1));
         }
+    }
+
+    @Test
+    public void testItemDetailsAndCreateAndUpdateRating(){
+        assertFalse(home.isLoggedIn());
+        String email = getUniqueId();
+        String name = getUniqueId();
+        String surName = getUniqueId();
+        String password = getUniqueId();
+        assertTrue(userService.createUser(email, name, surName, password, true));
+
+        home.doLogin(email, password);
+        assertTrue(home.isLoggedIn());
+        int itemsCount = home.getAmountOfDisplayedItems();
+
+        for(int i=0; i<itemsCount; i++){
+            itemDetail = home.toItemDetail(i);
+            assertTrue(itemDetail.isOnPage());
+            home.toStartingPage();
+        }
+
+        int randomRow = new Random().nextInt(itemsCount);
+        itemDetail = home.toItemDetail(randomRow);
+        String uniqueComment = getUniqueId();
+        String score = "2";
+        String newUniqueComment = getUniqueId();
+        String newScore = "5";
+        itemDetail.createRating(uniqueComment, score);
+        assertTrue(itemDetail.textExistsOnPage(uniqueComment));
+        assertTrue(itemDetail.textExistsOnPage(score));
+
+        itemDetail.updateRating(newUniqueComment, score);
+        assertTrue(itemDetail.textExistsOnPage(newUniqueComment));
+        assertTrue(itemDetail.textExistsOnPage(newScore));
+        assertFalse(itemDetail.textExistsOnPage(uniqueComment));
+    }
+
+    @Test
+    public void testRateItemAndSeeUserDetails(){
+        assertFalse(home.isLoggedIn());
+        String email = getUniqueId();
+        String name = getUniqueId();
+        String surName = getUniqueId();
+        String password = getUniqueId();
+        assertTrue(userService.createUser(email, name, surName, password, true));
+
+        home.doLogin(email, password);
+        assertTrue(home.isLoggedIn());
+        int itemsCount = home.getAmountOfDisplayedItems();
+
+        int randomRow = new Random().nextInt(itemsCount);
+        itemDetail = home.toItemDetail(randomRow);
+        String uniqueComment = getUniqueId();
+        String score = "2";
+        itemDetail.createRating(uniqueComment, score);
+        assertTrue(itemDetail.textExistsOnPage(uniqueComment));
+        assertTrue(itemDetail.textExistsOnPage(score));
+
+        home.toStartingPage();
+        assertTrue(home.isOnPage());
+
+        userDetail = home.toUserDetail();
+        assertTrue(userDetail.isOnPage());
+        assertTrue(userDetail.textExistsOnPage(email));
+        assertTrue(userDetail.textExistsOnPage(name));
+        assertTrue(userDetail.textExistsOnPage(surName));
+
+        assertTrue(userDetail.textExistsOnPage(uniqueComment));
+        assertTrue(userDetail.textExistsOnPage(score));
+
+        assertFalse(userDetail.textExistsOnPage(password));
+
+
     }
 
 

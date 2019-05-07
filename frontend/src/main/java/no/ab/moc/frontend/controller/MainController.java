@@ -25,7 +25,16 @@ public class MainController implements Serializable {
 
     public String toItemDetailPage(Item item){
         setItem(item);
-        return "/item-detail.jsf&faces-redirect=true";
+        return "/item-detail.jsf?faces-redirect=true";
+    }
+
+    public String toItemDetailPageSuccess(Item item){
+        setItem(item);
+        return "/item-detail.jsf?faces-redirect=true&success=true";
+    }
+
+    public String toItemDetailPageError(){
+        return "/item-detail.jsf?faces-redirect=true&error=true";
     }
 
     public Boolean userHasRankedItem(){

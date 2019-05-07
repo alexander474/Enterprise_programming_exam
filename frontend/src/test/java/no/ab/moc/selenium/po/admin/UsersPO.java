@@ -19,7 +19,7 @@ public class UsersPO extends LayoutPO {
 
     @Override
     public boolean isOnPage() {
-        return getDriver().getTitle().contains("Admin - Users");
+        return getDriver().getTitle().contains("Users");
     }
 
 
@@ -38,6 +38,12 @@ public class UsersPO extends LayoutPO {
             }
         }
         return -1;
+    }
+
+    public boolean textExistsOnPage(String text){
+        // Source https://stackoverflow.com/questions/11454798/how-can-i-check-if-some-text-exist-or-not-in-the-page-using-selenium
+        List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + text + "')]"));
+        return list.size() > 0;
     }
 
     public void disableUser(String email) {

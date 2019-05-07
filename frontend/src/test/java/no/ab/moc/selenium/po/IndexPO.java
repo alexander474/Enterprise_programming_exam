@@ -54,8 +54,17 @@ public class IndexPO extends LayoutPO {
         return po;
     }
 
-    public ItemDetailPO toItemDetail(String row){
-        clickAndWait(row+"detailBtn");
+    public UserDetailPO toUserDetail(){
+        clickAndWait("userpageId");
+
+        UserDetailPO po = new UserDetailPO(this);
+        assertTrue(po.isOnPage());
+        return po;
+    }
+
+
+    public ItemDetailPO toItemDetail(int row){
+        clickAndWait("itemsTable:"+row+":detailBtn");
 
         ItemDetailPO po = new ItemDetailPO(this);
         assertTrue(po.isOnPage());

@@ -139,7 +139,33 @@ public class ItemServiceTest extends ServiceTestBase {
         assertEquals(rankService.getRank(rankId).getId(), itemService.getItemUserRank(email, item.getId()).getId());
         assertEquals(rankService.getRank(rankId2).getId(), itemService.getItemUserRank(email2, item.getId()).getId());
         assertEquals(rankService.getRank(rankId3).getId(), itemService.getItemUserRank(email3, item.getId()).getId());
+    }
 
+    @Test
+    public void testGetUserItemRankWithErrorUser(){
+        String title = "testTitle";
+        String email = "error@error.com";
+        String comment = "testComment";
+        int score = 2;
+        long id = itemService.createItem(title, "testDesc", "action");
+        int sizeOfRanks = itemService.getItem(id).getRanks().size();
+        assertThrows(IllegalArgumentException.class ,() -> rankService.createRank(email, id, comment, score));
+        Item item = itemService.getItem(id);
+
+        assertEquals(title, item.getTitle());
+        assertEquals(sizeOfRanks, itemService.getItem(id).getRanks().size());
+
+        assertThrows(IllegalArgumentException.class ,() -> itemService.userHasRankedItem(email, item.getId()));
+        assertThrows(IllegalArgumentException.class ,() -> itemService.getItemUserRank(email, item.getId()));
+    }
+
+    @Test
+    public void testGetUserItemRankWithErrorItem(){
+        String email = "foo@bar.com";
+        createUser(email);
+
+        assertThrows(IllegalArgumentException.class ,() -> itemService.userHasRankedItem(email, -1L));
+        assertThrows(IllegalArgumentException.class ,() -> itemService.getItemUserRank(email, -1L));
     }
 
     @Test
@@ -174,15 +200,22 @@ public class ItemServiceTest extends ServiceTestBase {
         Item item3 = itemService.getItem(id3);
 
         List<Item> list = itemService.getAllItemsSortedByScore(true, null);
+        List<Item> listFiltered = itemService.getAllItemsSortedByScore(false, "action");
 
         for(int i = 0; i<list.size()-1; i++){
             assertNotNull(list.get(i));
             assertTrue(itemService.getItemRankAverage(list.get(i).getId()) >= itemService.getItemRankAverage(list.get(i + 1).getId()));
         }
 
+        for(Item i : listFiltered){
+            assertTrue(i.getCategory().equalsIgnoreCase("action"));
+        }
+
         assertEquals(title, item.getTitle());
         assertEquals(sizeOfRanks+3, itemService.getItem(id).getRanks().size());
     }
+
+
 
 
 

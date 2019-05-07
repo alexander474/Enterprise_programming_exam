@@ -1,6 +1,8 @@
 package no.ab.moc.frontend.controller;
 
+import no.ab.moc.entity.Item;
 import no.ab.moc.entity.Rank;
+import no.ab.moc.service.ItemService;
 import no.ab.moc.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,27 +22,32 @@ public class RankingController {
     @Autowired
     MainController mainController;
 
+    @Autowired
+    ItemService itemService;
+
     private String comment = "";
     private int score = 1;
 
     public String createRanking(){
         if(comment.isEmpty() || score <= 0 || score > 5){
-            return "/item-detail.jsf&faces-redirect=true&error=true";
+            return mainController.toItemDetailPageError();
         }
-        rankService.createRank(userInfoController.getUserEmail(), mainController.getItem().getId(), getComment(), getScore());
-        return "/item-detail.jsf&faces-redirect=true&success=true";
+        long id = rankService.createRank(userInfoController.getUserEmail(), mainController.getItem().getId(), getComment(), getScore());
+        rankService.getRank(id).getItem().getRanks().add(rankService.getRank(id));
+        return mainController.toItemDetailPageSuccess(rankService.getRank(id).getItem());
     }
 
     public String updateRanking(){
         if(comment.isEmpty() || score <= 0 || score > 5 || !mainController.userHasRankedItem()){
-            return "/item-detail.jsf&faces-redirect=true&error=true";
+            return mainController.toItemDetailPageError();
         }
         Rank rank = mainController.getUserRank();
         rank.setComment(comment);
         rank.setScore(score);
         rankService.updateRank(rank);
-        return "/item-detail.jsf&faces-redirect=true&success=true";
+        return mainController.toItemDetailPageSuccess(rankService.getRank(rank.getId()).getItem());
     }
+
 
     public String getComment() {
         return comment;

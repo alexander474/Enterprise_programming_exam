@@ -15,11 +15,6 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    private String email;
-
-    private String name;
-
-
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -28,19 +23,4 @@ public class UsersController {
         userService.changeEnabled(email);
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -26,7 +26,7 @@
             <br/>
             <h4><h:outputLabel value="Ratings: "/></h4>
             <dl>
-                <ui:repeat value="#{mainController.item.ranks}" var="rank">
+                <ui:repeat id="rankList" value="#{mainController.item.ranks}" var="rank">
                     <dt>
                         <h:outputLabel value="#{rank.user.name}: #{rank.score}/5"/>
                     </dt>
@@ -65,13 +65,13 @@
                     </tr>
                 </table>
                 <h:commandButton value="update"
-                                 id="update"
+                                 id="updateBtnId"
                                  class="defaultBtn"
                                  rendered="#{mainController.userHasRankedItem()}"
                                  action="#{rankingController.updateRanking}">
                 </h:commandButton>
-                <h:commandButton value="Submit"
-                                 id="create"
+                <h:commandButton value="Create"
+                                 id="createBtnId"
                                  class="defaultBtn"
                                  rendered="#{!mainController.userHasRankedItem()}"
                                  action="#{rankingController.createRanking}">
