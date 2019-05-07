@@ -7,7 +7,7 @@
     <artifactId>mocexam</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Root of mocexam</name>
+    <name>mocexam</name>
 
     <modules>
         <module>backend</module>
@@ -128,7 +128,7 @@
                     <configuration>
                         <appName>pg5100exam</appName>
                         <processTypes>
-                            <web>java -Dserver.port=$PORT -jar target/exam-exec.jar</web>
+                            <web>java -Dserver.port=$PORT -jar target/mocexam-exec.jar</web>
                         </processTypes>
                     </configuration>
                 </plugin>
