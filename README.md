@@ -2,7 +2,7 @@
 
 ## PG5100 2019
 
-[![Build Status](https://travis-ci.org/alexander474/Enterprise_programming_exercise.svg?branch=master)](https://travis-ci.org/alexander474/Enterprise_programming_exercise)
+[![Build Status](https://travis-ci.com/alexander474/Enterprise_programming_exercise.svg?token=Jcye5ttDhAMRpUM3Ca28&branch=master)](https://travis-ci.com/alexander474/Enterprise_programming_exercise)
 
 All requirements is completed and some extra functionalities has been added.
 
