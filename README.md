@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.com/alexander474/Enterprise_programming_exercise.svg?token=Jcye5ttDhAMRpUM3Ca28&branch=master)](https://travis-ci.com/alexander474/Enterprise_programming_exercise)
 
-All requirements is completed and some extra functionalities has been added.
+All requirements is completed and some extra functionalities has been added. When i used inspiration or copied code i specified the source in the current file or above methods.
 
 ### How to run
 
@@ -30,13 +30,9 @@ mvn verify
 
 ## Extras
 
-- Administrator
-  - Can enable/disable users in the application
-  - Can create new items
-  - Testing:
-    - testDisableAndEnableUser()
-    - testCreateItem()
-- 
+#### Administrator
+
+I have added administrator option to the user. The administrator gets access to enable/disable user accounts and create new items. This is tested by testDisableAndEnableUser() and testCreateItem().
 
 
 

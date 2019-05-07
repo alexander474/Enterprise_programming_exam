@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Created by arcuri82 on 14-Dec-17.
+ * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/backend/src/main/java/org/tsdes/intro/exercises/quizgame/backend/PasswordConfig.java
  */
 @Configuration
 public class PasswordConfig {
