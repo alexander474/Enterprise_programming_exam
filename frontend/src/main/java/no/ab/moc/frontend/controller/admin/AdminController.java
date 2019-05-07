@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.util.Date;
 
 @Named
 @RequestScoped
@@ -33,7 +32,7 @@ public class AdminController {
             return "/admin/create-item.jsf?faces-redirect=true&error=true";
         }
 
-        itemService.createItem(title, description, category);
+        itemService.createItem(title, description, category.toUpperCase());
 
         return "/admin/create-item.jsf?faces-redirect=true&success=true";
     }

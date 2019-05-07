@@ -1,6 +1,8 @@
 package no.ab.moc.frontend.controller;
 
 
+import no.ab.moc.entity.Rank;
+import no.ab.moc.entity.User;
 import no.ab.moc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.util.List;
 
 @Named
 @RequestScoped
@@ -32,6 +35,14 @@ public class UserInfoController {
 
     public String getFullNameByEmail(String email) {
         return userService.getUserFullName(email);
+    }
+
+    public User getUser(){
+        return userService.getUser(getUserEmail());
+    }
+
+    public List<Rank> getUserRanks(){
+        return userService.getUserRanks(getUserEmail());
     }
 
 }

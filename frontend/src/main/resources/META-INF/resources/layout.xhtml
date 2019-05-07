@@ -34,13 +34,14 @@
 
 <sec:authenticated>
     <div class="btnContainer">
-        <a id="logoutId" href="/logout" class="defaultBtn menuBtn">Log Out</a>
+        <a id="userpageId" href="/user.jsf" class="defaultBtn menuBtn">#{userInfoController.currentUserFullName}</a>
         <!-- https://stackoverflow.com/questions/11469211/how-to-use-secauthorize-access-hasroleroles-for-checking-multiple-roles-->
         <!-- https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html-->
         <sec:authorize access="hasRole('ADMIN')">
             <a id="usersId" href="/admin/users.jsf" class="defaultBtn menuBtn">Users</a>
             <a id="createItemId" href="/admin/create-item.jsf" class="defaultBtn menuBtn">Create Item</a>
         </sec:authorize>
+        <a id="logoutId" href="/logout" class="defaultBtn menuBtn">Log Out</a>
     </div>
 </sec:authenticated>
 

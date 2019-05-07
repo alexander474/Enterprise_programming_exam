@@ -1,5 +1,6 @@
 package no.ab.moc.service;
 
+import no.ab.moc.entity.Rank;
 import no.ab.moc.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,6 +69,10 @@ public class UserService {
     public void changeEnabled(String email){
         User user = em.find(User.class, email);
         user.setEnabled(!user.getEnabled());
+    }
+
+    public List<Rank> getUserRanks(String email){
+        return em.find(User.class, email).getRanks();
     }
 
 
