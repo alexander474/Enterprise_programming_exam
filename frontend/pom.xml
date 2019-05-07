@@ -134,7 +134,7 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${version.springboot}</version>
                     <configuration>
-                        <finalName>exam</finalName>
+                        <finalName>mocexam</finalName>
                         <classifier>exec</classifier>
                     </configuration>
                     <executions>
@@ -158,13 +158,8 @@
                     <artifactId>heroku-maven-plugin</artifactId>
                     <version>2.0.2</version>
                     <configuration>
-                        <appName>exam</appName>
-                        <includeTarget>false</includeTarget>
-                        <includes>
-                            <include>target/exam-exec.jar</include>
-                        </includes>
                         <processTypes>
-                            <web>java -Dserver.port=$PORT -jar target/exam-exec.jar</web>
+                            <web>java -Dserver.port=$PORT -jar target/mocexam-exec.jar</web>
                         </processTypes>
                     </configuration>
                 </plugin>
