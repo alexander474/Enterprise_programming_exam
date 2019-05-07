@@ -4,7 +4,11 @@
 
 [![Build Status](https://travis-ci.com/alexander474/Enterprise_programming_exercise.svg?token=Jcye5ttDhAMRpUM3Ca28&branch=master)](https://travis-ci.com/alexander474/Enterprise_programming_exercise)
 
-All requirements is completed and some extra functionalities has been added. When i used inspiration or copied code i specified the source in the current file or above methods.
+All requirements is completed and some extra functionalities has been added. When i used inspiration or copied code i specified the source in the current file or above methods. All the pom.xml files that is created is created with inspiration from the course repository
+
+[Course Repository]: https://github.com/arcuri82/testing_security_development_enterprise_systems	"Course Repository"
+
+
 
 ### How to run
 
