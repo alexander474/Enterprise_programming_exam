@@ -19,6 +19,10 @@ Run "LocalApplicationRunner" and it will run on localhost:8080
 
 
 
+The application is also deployed at [heroku](https://pg5100exam.herokuapp.com)
+
+
+
 ## Run Tests
 
 ```
