@@ -6,9 +6,11 @@
 
 All requirements is completed and some extra functionalities has been added. When i used inspiration or copied code i specified the source in the current file or above methods. All the pom.xml files that is created is created with inspiration from the [Course Repository](https://github.com/arcuri82/testing_security_development_enterprise_systems)
 
+[Exam text](/PG5100exam.pdf)
+
 ## Run Application
 
-Run "LocalApplicationRunner" and it will run on localhost:8080
+Run "LocalApplicationRunner" and it will run on [localhost:8080](http://localhost:8080)
 
 - Administrator
   - Email: admin@admin.com
@@ -19,18 +21,25 @@ Run "LocalApplicationRunner" and it will run on localhost:8080
 
 
 
-The application is also deployed at [heroku](https://pg5100exam.herokuapp.com)
-
-
-
 ## Run Tests
 
+```bash
+> mvn clean install
 ```
-mvn clean install
 
-if dependencies is installed then you could run:
-mvn verify
+If the dependencies is downloaded the you could just run:
+
+```bash
+> mvn verify
 ```
+
+
+
+## Different choices i did take in the exam 
+
+As the text states that the ratings is "stars" i did not choose to display visual stars as that would just be design work but rather use the data type Integer/int to represent stars where the valid values would be from 1-5 as stated in the exam. When the average is displaying the value i'm using Double with no limit on the decimals because this is not stated in the exam.
+
+I did also got item information (information about movies) from imdb.com top 250. I did just pick 20 items that is displayed by default. 
 
 
 
@@ -38,7 +47,15 @@ mvn verify
 
 #### Administrator
 
-I have added administrator option to the user. The administrator gets access to enable/disable user accounts and create new items. This is tested by testDisableAndEnableUser() and testCreateItem().
+I have added administrator option to the user. The administrator gets access to enable/disable user accounts and create new items. This is tested: 
+
+```java
+public void testDisableAndEnableUser()
+```
+
+```java
+public void testCreateItem()
+```
 
 
 
