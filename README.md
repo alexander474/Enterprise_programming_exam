@@ -23,9 +23,21 @@ mvn verify
 
 ## Extras
 
+- Administrator
 
+  - Can enable/disable users in the application
 
+  - Can create new items
 
+  - Testing:
+
+    - ```java
+      testDisableAndEnableUser()
+      ```
+
+    - ```java
+      testCreateItem()
+      ```
 
 
 
